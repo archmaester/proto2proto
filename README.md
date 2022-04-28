@@ -3,6 +3,10 @@
 
 ### To appear in CVPR 2021
 
+<p align="center" width="100%">
+<img src="https://github.com/archmaester/proto2proto/blob/main/imgs/architecture.png" width="800"/>
+</p>
+
 ## Creating conda Environment
 
 ```
