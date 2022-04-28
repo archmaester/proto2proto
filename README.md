@@ -26,13 +26,13 @@ conda activate myenv
 ## Training
 
 ```
-sh train_teacher.sh #for teacher training
-sh train_baseline.sh #for baseline student training
-sh train_kd.sh #for proto2proto student training
+sh train_teacher.sh  # For teacher training
+sh train_baseline.sh # For baseline student training
+sh train_kd.sh       # For proto2proto student training
 ```
-**_NOTE:_** For proto2proto student training, set the teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml (backbone -> loadPath). Use the best teacher model trained previously. For eg. 
+**_NOTE:_** For proto2proto student training, set the teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml, backbone.loadPath. Use the teacher model trained previously. For eg. 
 ```
-loadPath: Experiments/Resnet50_18_cars/teacher_Resnet50/org/models/protopnet_xyz_push_tuned.pth
+loadPath: Experiments/Resnet50_18_cars/teacher_Resnet50/org/models/protopnet_xyz.pth
 ```
 
 ## Evaluation
