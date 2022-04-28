@@ -48,3 +48,16 @@ sh eval_setting.sh
 - Dataset path should be set appropriately
 - Model path should be set in KD (1 place) and eval setting (3 places)
 - Set CUDA_VISIBLE_DEVICES depending on the GPUs, change batchSize if required
+
+## Acknowledgement
+Our code base is build on top of [ProtoPNet](https://github.com/cfchen-duke/ProtoPNet)
+
+## Citation
+If you use our work in your research please cite us:
+```BibTeX
+@inproceedings{Keswani2022Proto2ProtoCY,
+  title={Proto2Proto: Can you recognize the car, the way I do?},
+  author={Monish Keswani and Sriranjani Ramakrishnan and Nishant Reddy and Vineeth N. Balasubramanian},
+  year={2022}
+}
+```
