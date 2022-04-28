@@ -30,14 +30,14 @@ sh train_teacher.sh  # For teacher training
 sh train_baseline.sh # For baseline student training
 sh train_kd.sh       # For proto2proto student training
 ```
-**_NOTE:_** For proto2proto student training, set the teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml, backbone.loadPath. Use the teacher model trained previously. For eg. 
+**_NOTE:_** For proto2proto student training, set the teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml: backbone.loadPath. Use the teacher model trained previously. For eg. 
 ```
 loadPath: Experiments/Resnet50_18_cars/teacher_Resnet50/org/models/protopnet_xyz.pth
 ```
 
 ## Evaluation
 
-Set model paths in Experiments/Resnet50_18_cars/eval_setting/args.yaml: Teacherbackbone.loadPath, StudentBaselinebackbone.loadPath), StudentKDbackbone.loadPath. And Run
+Set model paths in Experiments/Resnet50_18_cars/eval_setting/args.yaml: Teacherbackbone.loadPath, StudentBaselinebackbone.loadPath, StudentKDbackbone.loadPath. And Run
 
 ```
 sh eval_setting.sh
