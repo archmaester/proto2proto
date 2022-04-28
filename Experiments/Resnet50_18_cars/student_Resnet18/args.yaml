@@ -1,0 +1,62 @@
+dataDir: fill
+newRun: false
+runName: Resnet50
+serviceName: protopnet_basic
+dataConfig:
+  imgSize: 224
+  loaderName: cars
+  augment: false
+  trainDir: datasets/cars/train_augmented
+  projectDir: datasets/cars/train
+  testDir: datasets/cars/test
+settingsConfig:
+  imgSize: 224
+  numFeatures: 256
+  PrototypeActivationFunction: log
+  useCheckpointOptimizer: true
+  backbone:
+    name: resnet18
+    pretrained: true
+    loadPath: null
+    prototypicalModel: protopnet
+  protoPNet:
+    numPrototypes: 1960
+    classSpecific: true
+    W1: 1
+    H1: 1
+  lossList:
+    crossEntropy:
+      consider: true
+      weight: 1.0
+    clusterSep:
+      consider: true
+      clusterWeight: 1.0
+      sepWeight: -0.08
+    l1:
+      consider: true
+      weight: 1.0e-04
+  train:
+    seed: 12
+    maxEpochs: 300
+    lrNet: 2.0e-04
+    lrBlock: 3.0e-03
+    lrProto: 3.0e-03
+    lrLastLayer: 1.0e-04
+    weightDecay: 1.0e-03
+    gamma: 0.1
+    stepSize: 4
+    stepStart: 16
+    warmEpochs: 6
+    pushStart: 12
+    evalEpoch: 1
+    saveEpoch: 1
+    optimizer: Adam
+    useTensorboard: true
+common:
+  cuda: true
+  mgpus: true
+  numWorkers: 0
+  testBatchSize: 100
+  testNumWorkers: 0
+  trainBatchSize: 128
+  trainNumWorkers: 4

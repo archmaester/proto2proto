@@ -1,0 +1,47 @@
+dataDir: fill
+newRun: false
+runName: Resnet50_18_cars
+serviceName: protopnet_evaluate_final
+dataConfig:
+  imgSize: 224
+  loaderName: cars
+  augment: false
+  trainDir: datasets/cars/train_augmented # Path-to-dataset
+  projectDir: datasets/cars/train # Path-to-dataset
+  testDir: datasets/cars/test # Path-to-dataset
+settingsConfig:
+  imgSize: 224
+  numFeatures: 256
+  prototypicalModel: protopnet
+  PrototypeActivationFunction: log
+  useCheckpointOptimizer: true
+  Teacherbackbone:
+    prototypicalModel: protopnet
+    name: resnet50
+    pretrained: true
+    loadPath: null # Path-to-teacher-model
+  StudentBaselinebackbone:
+    prototypicalModel: protopnet
+    name: resnet18
+    pretrained: true
+    loadPath: null # Path-to-student-baseline-model
+  StudentKDbackbone:
+    prototypicalModel: protopnet
+    name: resnet18
+    pretrained: true
+    loadPath: null # Path-to-student-kd-model
+  protoPNet:
+    numPrototypes: 1960
+    classSpecific: true
+    W1: 1
+    H1: 1
+  train:
+    seed: 12
+common:
+  cuda: true
+  mgpus: true
+  numWorkers: 0
+  testBatchSize: 1
+  testNumWorkers: 0
+  trainBatchSize: 4
+  trainNumWorkers: 1
