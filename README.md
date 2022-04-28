@@ -1,17 +1,16 @@
 
-# Proto2Proto [arxiv](https://arxiv.org/abs/2204.11830)
+# Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)]
 
 ### To appear in CVPR 2021
 
 ## Create conda Environment
 
-Run
 ```
 conda env create -f environment.yml -n myenv python=3.6
 conda activate myenv
 ```
 
-## CARS dataset download
+## Preparing Dataset
 
 - Refer https://github.com/M-Nauta/ProtoTree to download and preprocess cars dataset
 - For augmentation, run lib/protopnet/cars_augment.py (Change the dataset paths if required)
