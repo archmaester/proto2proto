@@ -1,9 +1,9 @@
 
-# Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)]
+# Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)|poster]
 
 ### To appear in CVPR 2021
 
-## Create conda Environment
+## Creating conda Environment
 
 ```
 conda env create -f environment.yml -n myenv python=3.6
@@ -23,34 +23,22 @@ conda activate myenv
   testDir: datasets/cars/test # Path-to-dataset
 ```
 
-## Teacher training
+## Training
 
 ```
-sh train_teacher.sh
+sh train_teacher.sh #for teacher training
+sh train_baseline.sh #for baseline student training
+sh train_kd.sh #for proto2proto student training
 ```
-## Baseline student training
-
-Run
+**_NOTE:_** For proto2proto student training, set the teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml (backbone -> loadPath). Use the best teacher model trained previously. For eg. 
 ```
-sh train_baseline.sh
-```
-
-## KD student training
-
-- Set teacher path in Experiments/Resnet50_18_cars/kd_Resnet50_18/args.yaml (backbone -> loadPath). Use the best teacher model trained previously
-
-Run
-```
-sh train_kd.sh
+loadPath: Experiments/Resnet50_18_cars/teacher_Resnet50/org/models/protopnet_xyz_push_tuned.pth
 ```
 
 ## Evaluation
 
-- Set teacher model path in Experiments/Resnet50_18_cars/eval_setting/args.yaml (Teacherbackbone -> loadPath)
-- Set baseline model path in Experiments/Resnet50_18_cars/eval_setting/args.yaml (StudentBaselinebackbone -> loadPath)
-- Set kd model path in Experiments/Resnet50_18_cars/eval_setting/args.yaml (StudentKDbackbone -> loadPath)
+Set model paths in Experiments/Resnet50_18_cars/eval_setting/args.yaml: Teacherbackbone.loadPath, StudentBaselinebackbone.loadPath), StudentKDbackbone.loadPath. And Run
 
-Run
 ```
 sh eval_setting.sh
 ```
