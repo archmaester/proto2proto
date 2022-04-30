@@ -103,7 +103,6 @@ class Service(object):
         self.aap_baseline = []
         self.app_kd = []
 
-        self.ajs_teacher = []
         self.ajs_baseline = []
         self.ajs_kd = []
 
@@ -112,7 +111,7 @@ class Service(object):
             self.evaluate(dist_th, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=False)
 
         plot_aap(self.aap_teacher , self.aap_baseline, self.app_kd, distance_thresholds, self.manager.base_dir)
-        plot_ajs(self.ajs_teacher, self.ajs_baseline, self.ajs_kd, distance_thresholds, self.manager.base_dir)
+        plot_ajs(self.ajs_baseline, self.ajs_kd, distance_thresholds, self.manager.base_dir)
 
         self.evaluate(None, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=True)
 
@@ -277,9 +276,10 @@ def plot_aap(tchr, baseline, kd, dts, save_dir):
     plt.show()
     plt.savefig(os.path.join(save_dir, 'aap.png'))
 
-def plot_ajs(tchr, baseline, kd, dts, save_dir):
+def plot_ajs(baseline, kd, dts, save_dir):
 
     #X-Y axis
+    tchr = [1.0]*len(dts)
     x = range(1, len(dts)+1)
     plt.xlabel('Distance Threshold')
     plt.xticks(x, dts)
