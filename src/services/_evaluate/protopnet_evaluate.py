@@ -3,6 +3,7 @@ import math
 import torch
 import numpy as np
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 from src.mgr import manager
 from src.utils.dirs import create_dirs
 import torch.nn.functional as F
@@ -98,16 +99,24 @@ class Service(object):
                 stu_kd_data.append([stu_kd_indices, stu_kd_scores])
                 stu_baseline_data.append([stu_baseline_indices, stu_baseline_scores])
 
-        distance_thresholds = [5.0, 3.0, 1.0, .45, 0.2, 0.1, 0.01]
+        self.aap_teacher = []
+        self.aap_baseline = []
+        self.app_kd = []
+
+        self.ajs_teacher = []
+        self.ajs_baseline = []
+        self.ajs_kd = []
+
+        distance_thresholds = [0.01, 0.1, 0.2, 0.45, 1.0, 3.0, 5.0, None]
         for dist_th in distance_thresholds:
             self.evaluate(dist_th, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=False)
+
+        plot_aap(self.aap_teacher , self.aap_baseline, self.app_kd, distance_thresholds, self.manager.base_dir)
+        plot_ajs(self.ajs_teacher, self.ajs_baseline, self.ajs_kd, distance_thresholds, self.manager.base_dir)
 
         self.evaluate(None, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=True)
 
     def evaluate(self, dist_th, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=True):
-
-        print("\n", "*"*200, "\n")
-        print("Distance Threshold", dist_th, "\n")
 
         num_test_images = len(self.dataset_loader.test_loader)
         teacher_prototypes = [[[],[]] for ii in range(self.teacher_model.module.num_prototypes)]
@@ -169,14 +178,13 @@ class Service(object):
                     student_baseline_prototypes[jj][0].append(name)
                     student_baseline_prototypes[jj][1].append(None)
 
-        print("Average active patches per image, Teacher: ", count_tchr / num_test_images)
-        print("Average active patches per image, Baseline: ", count_stu_baseline / num_test_images)
-        print("Average active patches per image, Ours: ", count_stu_kd / num_test_images)
-
-        print("Average IoU of active patches per image, Baseline: ", iou_stu_baseline / num_test_images)
-        print("Average IoU of active patches per image, Ours: ", iou_stu_kd / num_test_images)
-
         if not calc_pm:
+            self.aap_teacher.append(count_tchr / num_test_images)
+            self.aap_baseline.append(count_stu_baseline / num_test_images)
+            self.app_kd.append(count_stu_kd / num_test_images)
+
+            self.ajs_baseline.append(iou_stu_baseline / num_test_images)
+            self.ajs_kd.append(iou_stu_kd / num_test_images)
             return
 
         # Teacher, Student-kd IoU
@@ -252,6 +260,39 @@ class Service(object):
 
         return
 
+def plot_aap(tchr, baseline, kd, dts, save_dir):
+
+    #X-Y axis
+    x = range(1, len(dts)+1)
+    plt.xlabel('Distance Threshold')
+    plt.xticks(x, dts)
+    plt.ylabel('Average Active Patches')
+
+    # Plot a simple line chart
+    plt.plot(x, tchr, 'b', label='Teacher')
+    plt.plot(x, baseline, 'r', label='Student(Baseline)')
+    plt.plot(x, kd, 'yellow', label='Student(Ours)')
+
+    plt.legend()
+    plt.show()
+    plt.savefig(os.path.join(save_dir, 'aap.png'))
+
+def plot_ajs(tchr, baseline, kd, dts, save_dir):
+
+    #X-Y axis
+    x = range(1, len(dts)+1)
+    plt.xlabel('Distance Threshold')
+    plt.xticks(x, dts)
+    plt.ylabel('Average Jaccard similarity with Teacher')
+
+    # Plot a simple line chart
+    plt.plot(x, tchr, 'b', label='Teacher')
+    plt.plot(x, baseline, 'r', label='Student(Baseline)')
+    plt.plot(x, kd, 'yellow', label='Student(Ours)')
+
+    plt.legend()
+    plt.show()
+    plt.savefig(os.path.join(save_dir, 'ajs.png'))
 
 @ray.remote
 def jaccard_row(ii, tchr_prototypes, stu_prototypes, max_union):

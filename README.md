@@ -62,6 +62,9 @@ If you use our work in your research please cite us:
 @inproceedings{Keswani2022Proto2ProtoCY,
   title={Proto2Proto: Can you recognize the car, the way I do?},
   author={Monish Keswani and Sriranjani Ramakrishnan and Nishant Reddy and Vineeth N. Balasubramanian},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022)},
+  eprint={2204.11830},
+  archivePrefix={arXiv},
   year={2022}
 }
 ```
