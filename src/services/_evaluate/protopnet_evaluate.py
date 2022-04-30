@@ -101,7 +101,7 @@ class Service(object):
 
         self.aap_teacher = []
         self.aap_baseline = []
-        self.app_kd = []
+        self.aap_kd = []
 
         self.ajs_baseline = []
         self.ajs_kd = []
@@ -110,8 +110,15 @@ class Service(object):
         for dist_th in distance_thresholds:
             self.evaluate(dist_th, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=False)
 
-        plot_aap(self.aap_teacher , self.aap_baseline, self.app_kd, distance_thresholds, self.manager.base_dir)
+        plot_aap(self.aap_teacher , self.aap_baseline, self.aap_kd, distance_thresholds, self.manager.base_dir)
         plot_ajs(self.ajs_baseline, self.ajs_kd, distance_thresholds, self.manager.base_dir)
+
+        print("Distance thresholds", distance_thresholds)
+        print("AAPs(teacher): ", self.aap_teacher)
+        print("AAPs(baseline): ", self.aap_baseline)
+        print("AAPs(kd): ", self.aap_kd, "\n\n")
+        print("AJS(baseline): ", self.ajs_baseline)
+        print("AJS(kd): ", self.ajs_kd)
 
         self.evaluate(None, teacher_data, stu_kd_data, stu_baseline_data, calc_pm=True)
 
@@ -180,7 +187,7 @@ class Service(object):
         if not calc_pm:
             self.aap_teacher.append(count_tchr / num_test_images)
             self.aap_baseline.append(count_stu_baseline / num_test_images)
-            self.app_kd.append(count_stu_kd / num_test_images)
+            self.aap_kd.append(count_stu_kd / num_test_images)
 
             self.ajs_baseline.append(iou_stu_baseline / num_test_images)
             self.ajs_kd.append(iou_stu_kd / num_test_images)
@@ -261,6 +268,7 @@ class Service(object):
 
 def plot_aap(tchr, baseline, kd, dts, save_dir):
 
+    plt.figure(0)
     #X-Y axis
     x = range(1, len(dts)+1)
     plt.xlabel('Distance Threshold')
@@ -278,6 +286,7 @@ def plot_aap(tchr, baseline, kd, dts, save_dir):
 
 def plot_ajs(baseline, kd, dts, save_dir):
 
+    plt.figure(1)
     #X-Y axis
     tchr = [1.0]*len(dts)
     x = range(1, len(dts)+1)
