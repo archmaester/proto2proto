@@ -1,7 +1,7 @@
 
 # Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)|poster]
 
-### To appear in CVPR 2021
+### To appear in CVPR 2022
 
 <p align="center" width="100%">
 <img src="https://github.com/archmaester/proto2proto/blob/main/imgs/architecture.png" width="800"/>
