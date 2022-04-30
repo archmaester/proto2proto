@@ -1,5 +1,5 @@
 
-# Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)|poster]
+# Proto2Proto [[arxiv](https://arxiv.org/abs/2204.11830)]
 
 ### To appear in CVPR 2022
 
