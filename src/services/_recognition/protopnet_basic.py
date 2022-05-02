@@ -41,7 +41,6 @@ class Trainer(object):
 
         result = evaluate.evaluate_model(self.model, self.dataset_loader.test_loader,
                                          mgpus=self.mgpus)
-        print(epoch, result)
 
         if manager.settingsConfig.train.useTensorboard:
             self.logger.add_scalars("test", result, epoch)
@@ -95,7 +94,8 @@ class Trainer(object):
                 self.save_model(epoch)
 
             if epoch % self.manager.settingsConfig.train.evalEpoch == 0:
-                self.evaluate(epoch)
+                result = self.evaluate(epoch)
+                print(epoch, result)
 
             if epoch in push_epochs:
                 self.push(epoch)

@@ -243,10 +243,10 @@ def resnet18_features(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.1' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
@@ -268,10 +268,10 @@ def resnet34_features(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.2' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
@@ -292,10 +292,10 @@ def resnet50_features(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.2' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
@@ -334,10 +334,10 @@ def resnet50_features_inat(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.2' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
@@ -359,10 +359,10 @@ def resnet101_features(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.2' not in name and 'layer4.1' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
@@ -384,10 +384,10 @@ def resnet152_features(pretrained=False, **kwargs):
     for name, param in model.named_parameters():
         if 'layer4.2' not in name and 'layer4.1' not in name:
             param.requires_grad=False
-            print(name, "Frozen")
+            # print(name, "Frozen")
         else:
             param.requires_grad=True
-            print(name, "Trainable")
+            # print(name, "Trainable")
             trainable_param_names.append(name)
 
     return model, trainable_param_names
